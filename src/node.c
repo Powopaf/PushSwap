@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:19:25 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 17:29:53 by pifourni         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:53:00 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ struct s_node	*new_node(char data)
 	return (n);
 }
 
-void	push(struct s_node *n, struct s_node *stack)
+void	queue(struct s_node *n, struct s_node *stack)
 {
 	n->next = stack;
 	stack->prev = n;
@@ -35,7 +35,7 @@ void	push(struct s_node *n, struct s_node *stack)
 	*stack = *n;
 }
 
-struct s_node	*pop(struct s_node *stack)
+struct s_node	*dequeue(struct s_node *stack)
 {
 	struct s_node	*res;
 
@@ -51,3 +51,4 @@ int	is_empty(struct s_node *stack)
 {
 	return (stack == NULL);
 }
+
