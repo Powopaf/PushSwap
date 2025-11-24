@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:19:25 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 11:19:26 by pifourni         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:16:39 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "../list.h"
 #include <stdlib.h>
 
-struct node	*new_node(char data)
+struct s_node	*new_node(char data)
 {
-	struct node	*n;
+	struct s_node	*n;
 
-	n = malloc(sizeof(struct node));
+	n = malloc(sizeof(struct s_node));
 	if (!n)
 		return (NULL);
 	n->data = data;
@@ -27,7 +27,7 @@ struct node	*new_node(char data)
 	return (n);
 }
 
-void	push(struct node *n, struct node *stack)
+void	push(struct s_node *n, struct s_node *stack)
 {
 	n->next = stack;
 	stack->prev = n;
@@ -35,9 +35,9 @@ void	push(struct node *n, struct node *stack)
 	*stack = *n;
 }
 
-struct node	*pop(struct node *stack)
+struct s_node	*pop(struct s_node *stack)
 {
-	struct node	*res;
+	struct s_node	*res;
 
 	res = stack;
 	stack = stack->next;
