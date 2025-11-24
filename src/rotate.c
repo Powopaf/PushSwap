@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 10:34:53 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 10:34:57 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/24 11:47:59 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/24 11:48:00 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "swap.h"
+#include "../swap.h"
 
-int	main(int argc, char **argv)
+void	ra(struct node *stack_a)
 {
-	struct node	*stack_a;
-	struct node *stack_b;
 
-	return (0);
+}
+
+void	rb(struct node *stack_b)
+{
+
+}
+
+void	rr(struct node *stack_a, struct node *stack_b)
+{
+
 }

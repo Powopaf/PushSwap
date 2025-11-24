@@ -6,7 +6,7 @@
 #    By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/24 10:34:38 by pifourni          #+#    #+#              #
-#    Updated: 2025/11/24 10:34:41 by pifourni         ###   ########.fr        #
+#    Updated: 2025/11/24 12:02:24 by pifourni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,12 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIB =
-SRC = 
+SRC = ./swap.c \
+	  ./src/exchange.c \
+	  ./src/node.c \
+	  ./src/push.c \
+	  ./src/reverse.c \
+	  ./src/rotate.c
 
 OBJ = $(SRC:.c=.o)
 

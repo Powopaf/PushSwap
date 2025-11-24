@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   exchange.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 10:34:53 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 10:34:57 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/24 11:46:17 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/24 11:46:18 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "swap.h"
+#include "../swap.h"
 
-int	main(int argc, char **argv)
+void	sa(struct node *stack_a)
 {
-	struct node	*stack_a;
-	struct node *stack_b;
 
-	return (0);
+}
+
+void	sb(struct node *stack_b)
+{
+
+}
+
+void	ss(struct node *stack_a, struct node *stack_b)
+{
+	
 }
