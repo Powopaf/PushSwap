@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:19:25 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 17:16:39 by pifourni         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:29:53 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ struct s_node	*pop(struct s_node *stack)
 	res->prev = NULL;
 	stack->prev = NULL;
 	return (res);
+}
+
+int	is_empty(struct s_node *stack)
+{
+	return (stack == NULL);
 }
