@@ -14,7 +14,7 @@
 #include "../list.h"
 #include <stdlib.h>
 
-struct s_node	*new_node(char data)
+struct s_node	*new_node(int data)
 {
 	struct s_node	*n;
 
@@ -52,3 +52,15 @@ int	is_empty(struct s_node *stack)
 	return (stack == NULL);
 }
 
+void	free_stack(struct s_node *stack)
+{
+	struct s_node	*tmp;
+
+	while (stack)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+	}
+	stack = NULL;
+}

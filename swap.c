@@ -16,9 +16,17 @@ int	main(int argc, char **argv)
 {
 	struct s_node	*stack_a;
 	struct s_node	*stack_b;
+	int				n;
 	
-	stack_a = new_node('a');
-	stack_b = new_node('b');
-
+	if (argc < 2)
+		return (0);
+	n = 0; // TODO: initialize stack_a with input values and return the lenghth
+	stack_b = NULL;
+	if (n <= 3)
+		return (1); // TODO: call sorting function for 3 elts
+	else if (n <= 5)
+		return (2); // TODO: call sorting function for 5 elts
+	// TODO: Normalize
+	// TODO: Radix sort
 	return (0);
 }

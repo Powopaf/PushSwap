@@ -14,6 +14,7 @@
 # define SWAP_H
 
 # include "list.h"
+#include <stddef.h>
 
 void	sa(struct s_node *stack_a);
 void	sb(struct s_node *stack_b);

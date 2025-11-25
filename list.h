@@ -15,12 +15,12 @@
 
 struct s_node
 {
-	char		data;
+	int		data;
 	struct s_node	*next;
 	struct s_node	*prev;
 };
 
-struct s_node	*new_node(char data);
+struct s_node	*new_node(int data);
 void			queue(struct s_node *n, struct s_node *stack);
 struct s_node	*dequeue(struct s_node *stack);
 int				is_empty(struct s_node *stack);
