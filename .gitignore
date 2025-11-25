@@ -1,6 +1,8 @@
+*.swp
+.vscode/
+push_swap
 # Prerequisites
 *.d
-.vscode/
 # Object files
 *.o
 *.ko

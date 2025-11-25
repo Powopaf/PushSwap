@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../list.h"
 #include <stdlib.h>
+#include "list.h"
 
 struct s_node	*new_node(int data)
 {
@@ -22,6 +21,7 @@ struct s_node	*new_node(int data)
 	if (!n)
 		return (NULL);
 	n->data = data;
+	n->index = -1;
 	n->next = NULL;
 	n->prev = NULL;
 	return (n);

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "../list.h"
+#include "../../libft/libft.h"
+#include "list.h"
 
 static void	free_values(char **values)
 {

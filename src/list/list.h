@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 10:34:53 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 17:17:52 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/24 11:00:46 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/24 17:52:31 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "swap.h"
+#ifndef LIST_H
+# define LIST_H
 
-int	main(int argc, char **argv)
+struct s_node
 {
-	struct s_node	*stack_a;
-	struct s_node	*stack_b;
-	int				n;
-	
-	if (argc < 2)
-		return (0);
-	n = init_stacks(argv, &stack_a);
-	stack_b = NULL;
-	return (0);
-}
+	int		data;
+	int		index;
+	struct s_node	*next;
+	struct s_node	*prev;
+};
+
+struct s_node	*new_node(int data);
+void			queue(struct s_node *n, struct s_node *stack);
+struct s_node	*dequeue(struct s_node *stack);
+int				is_empty(struct s_node *stack);
+
+#endif

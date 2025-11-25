@@ -13,7 +13,7 @@
 #ifndef SWAP_H
 # define SWAP_H
 
-# include "list.h"
+# include "src/list/list.h"
 #include <stddef.h>
 
 void	sa(struct s_node *stack_a);

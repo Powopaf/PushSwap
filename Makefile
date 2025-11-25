@@ -15,13 +15,15 @@
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIB =
+LIB = libft/libft.a
 SRC = ./swap.c \
-	  ./src/exchange.c \
-	  ./src/node.c \
-	  ./src/push.c \
-	  ./src/reverse.c \
-	  ./src/rotate.c
+	  ./src/list/node.c \
+	  ./src/list/list.c \
+	  ./src/radix/sort.c \
+	  ./src/operations/push.c \
+	  ./src/operations/exchange.c \
+	  ./src/operations/rotate.c \
+	  ./src/operations/reverse.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -29,16 +31,21 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $+ $(LIB)
+$(NAME): $(OBJ) $(LIB)
+	$(CC) -o $(NAME) $^ $(LIB)
+
+$(LIB):
+	${MAKE} -C libft
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -f $(OBJ)
+	${MAKE} -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	${MAKE} -C libft fclean
 
 re: fclean all
