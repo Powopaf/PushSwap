@@ -48,6 +48,7 @@ static void	free_split(char **split)
 t_list	*parser(int argc, char **argv)
 {
 	int	i;
+	int	num;
 	size_t	j;
 	t_list	*stack;
 	char	**split;
@@ -64,7 +65,8 @@ t_list	*parser(int argc, char **argv)
 		{
 			if (!check_num(split[j]))
 				return (NULL);
-			ft_lstadd_front(&stack, ft_lstnew(ft_atoi(split[j])));
+			num = ft_atoi(split[j]);
+			ft_lstadd_front(&stack, ft_lstnew((void *)(long)num));
 			j++;
 		}
 		free_split(split);

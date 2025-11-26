@@ -14,9 +14,11 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LIB = libft/libft.a
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+LIB = libft/libft.a -fsanitize=address
 SRC = ./swap.c \
+	  ./src/parsing/parse.c \
+	  ./src/error/error.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -24,11 +26,11 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB)
+$(NAME): $(LIB) $(OBJ)
 	$(CC) -o $(NAME) $^ $(LIB)
 
 $(LIB):
-	${MAKE} -C libft
+	${MAKE} -C libft bonus
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<

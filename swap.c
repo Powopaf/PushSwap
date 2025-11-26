@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;
-	ft_lstclear(&stack_a, free);
-	ft_lstclear(&stack_b, free);
+	ft_lstclear(&stack_a, NULL);
+	ft_lstclear(&stack_b, NULL);
 	return (0);
 }
