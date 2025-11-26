@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 11:47:44 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 17:13:19 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/26 15:25:37 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/26 15:25:38 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../swap.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-void	pa(struct s_node *stack_a, struct s_node *stack_b)
-{
+#include "../../libft/libft.h"
 
-}
+int	error_message(char *msg);
 
-void	pa(struct s_node *stack_a, struct s_node *stack_b)
-{
-
-}
+#endif

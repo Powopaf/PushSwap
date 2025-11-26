@@ -17,13 +17,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIB = libft/libft.a
 SRC = ./swap.c \
-	  ./src/list/node.c \
-	  ./src/list/list.c \
-	  ./src/radix/sort.c \
-	  ./src/operations/push.c \
-	  ./src/operations/exchange.c \
-	  ./src/operations/rotate.c \
-	  ./src/operations/reverse.c
 
 OBJ = $(SRC:.c=.o)
 

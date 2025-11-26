@@ -10,17 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "swap.h"
+#include "libft/libft.h"
+#include "src/parsing/parse.h"
+#include "src/error/error.h"
 
 int	main(int argc, char **argv)
 {
-	struct s_node	*stack_a;
-	struct s_node	*stack_b;
-	int				n;
-	
-	if (argc < 2)
-		return (0);
-	n = init_stacks(argv, &stack_a);
+	t_list	*stack_a;
+	t_list	*stack_b;
+
+	stack_a = parser(argc, argv);
+	if (!stack_a)
+		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;
+	ft_lstclear(&stack_a, free);
+	ft_lstclear(&stack_b, free);
 	return (0);
 }

@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exchange.c                                         :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 11:46:17 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/24 17:10:09 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/26 15:21:16 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/26 15:21:21 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../swap.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-void	sa(struct s_node *stack_a)
-{
+# include "../../libft/libft.h"
 
-}
+t_list	*parser(int argc, char **argv);
 
-void	sb(struct s_node *stack_b)
-{
-
-}
-
-void	ss(struct s_node *stack_a, struct s_node *stack_b)
-{
-
-}
+#endif
