@@ -13,6 +13,7 @@
 #include "libft/libft.h"
 #include "src/parsing/parse.h"
 #include "src/error/error.h"
+#include "src/radix/radix.h"
 #include <stdio.h>
 
 int	main(int argc, char **argv)
@@ -27,6 +28,14 @@ int	main(int argc, char **argv)
 		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;
 	t_list *c = stack_a;
+	while (c)
+	{
+		printf("%d\n", *(int *)c->content);
+		c = c->next;
+	}
+	sort(&stack_a, &stack_b, size);
+	printf("After sorting:\n");
+	c = stack_a;
 	while (c)
 	{
 		printf("%d\n", *(int *)c->content);

@@ -42,13 +42,13 @@ static int	norm(t_list *stack, int min)
 	return (num);
 }
 
-static int	get_max_bits(size_t size)
+static int	get_max_bits(t_list *stack)
 {
 	int	max_bits;
 	size_t	max_num;
 
 	max_bits = 0;
-	max_num = size - 1;
+	max_num = norm(stack, get_min(stack));
 	while ((max_num >> max_bits) != 0)
 		max_bits++;
 	return (max_bits);
@@ -60,9 +60,9 @@ void	sort(t_list **stack_a, t_list **stack_b, size_t size)
 	int		i;
 	long	num;
 	int		min;
-	int		j;
+	size_t	j;
 
-	maxBits = get_max_bits(size);
+	maxBits = get_max_bits(*stack_a);
 	i = 0;
 	min = get_min(*stack_a);
 	while (i < maxBits)

@@ -18,7 +18,9 @@ CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LIB = libft/libft.a -fsanitize=address
 SRC = ./swap.c \
 	  ./src/parsing/parse.c \
-	  ./src/error/error.c
+	  ./src/error/error.c \
+	  ./src/radix/radix.c \
+	  ./src/radix/operations.c
 
 OBJ = $(SRC:.c=.o)
 
