@@ -10,4 +10,75 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "radix.h"
 
+static int	get_min(t_list *stack)
+{
+	int	min;
+
+	min = *(int *)stack->content;
+	stack = stack->next;
+	while (stack)
+	{
+		if (*(int *)stack->content < min)
+			min = *(int *)stack->content;
+		stack = stack->next;
+	}
+	return (min);
+}
+
+static int	norm(t_list *stack, int min)
+{
+	long	num;
+
+	num = *(int *)stack->content - min;
+	stack = stack->next;
+	while (stack)
+	{
+		if ((*(int *)stack->content - min) < num)
+			num = *(int *)stack->content - min;
+		stack = stack->next;
+	}
+	return (num);
+}
+
+static int	get_max_bits(size_t size)
+{
+	int	max_bits;
+	size_t	max_num;
+
+	max_bits = 0;
+	max_num = size - 1;
+	while ((max_num >> max_bits) != 0)
+		max_bits++;
+	return (max_bits);
+}
+
+void	sort(t_list **stack_a, t_list **stack_b, size_t size)
+{
+	int		maxBits;
+	int		i;
+	long	num;
+	int		min;
+	int		j;
+
+	maxBits = get_max_bits(size);
+	i = 0;
+	min = get_min(*stack_a);
+	while (i < maxBits)
+	{
+		j = 0;
+		while (j < size)
+		{
+			num = (long)(*stack_a)->content - (long)min;
+			if (((num >> i) & 1) == 1)
+				ra(stack_a);
+			else
+				pb(stack_a, stack_b);
+		}
+		j++;
+	}
+	while (*stack_b)
+		pa(stack_a, stack_b);
+	i++;
+}

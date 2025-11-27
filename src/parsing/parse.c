@@ -56,7 +56,7 @@ static int	is_many(char **split)
 	return (i);
 }
 
-static int add(char **split, t_list **stack, size_t j)
+static int add(char **split, t_list **stack, size_t j, size_t *i)
 {
 	int *num;
 	
@@ -67,11 +67,11 @@ static int add(char **split, t_list **stack, size_t j)
 		return (0);
 	*num = ft_atoi(split[j]);
 	ft_lstadd_front(stack, ft_lstnew(num));
-
+	(*i)++;
 	return (1);
 }
 
-t_list	*parser(int argc, char **argv)
+t_list	*parser(int argc, char **argv, size_t *k)
 {
 	int		i;
 	size_t	j;
@@ -88,10 +88,10 @@ t_list	*parser(int argc, char **argv)
 		j = is_many(split);
 		while (--j != 0)
 		{
-			if (!add(split, &stack, j))
+			if (!add(split, &stack, j, k))
 				return (error_parsing(split, stack));
 		}
-		if (!add(split, &stack, j))
+		if (!add(split, &stack, j, k))
 			return (error_parsing(split, stack));
 		free_split(split);
 	}

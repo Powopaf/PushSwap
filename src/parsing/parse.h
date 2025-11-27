@@ -15,7 +15,7 @@
 
 # include "../../libft/libft.h"
 
-t_list	*parser(int argc, char **argv);
+t_list	*parser(int argc, char **argv, size_t *i);
 void	free_split(char **split);
 
 #endif

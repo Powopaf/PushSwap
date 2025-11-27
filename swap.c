@@ -19,8 +19,10 @@ int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	size_t	size;
 
-	stack_a = parser(argc, argv);
+	size = 0;
+	stack_a = parser(argc, argv, &size);
 	if (!stack_a)
 		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;

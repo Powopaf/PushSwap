@@ -10,4 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RADIX_H
+# define RADIX_H
 
+#include "../../libft/libft.h"
+
+void	pa(t_list **stack_a, t_list **stack_b);
+void	pb(t_list **stack_a, t_list **stack_b);
+void	ra(t_list **stack_a);
+
+#endif
