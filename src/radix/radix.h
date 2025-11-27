@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   radix.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/26 15:21:16 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/26 15:21:21 by pifourni         ###   ########.fr       */
+/*   Created: 2025/11/26 16:32:37 by pifourni          #+#    #+#             */
+/*   Updated: 2025/11/26 16:32:39 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
 
-# include "../../libft/libft.h"
-
-t_list	*parser(int argc, char **argv);
-void	free_split(char **split);
-
-#endif

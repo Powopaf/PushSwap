@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "../error/error.h"
 
 static int	check_num(char *str)
 {
@@ -32,7 +33,7 @@ static int	check_num(char *str)
 	return (1);
 }
 
-static void	free_split(char **split)
+void	free_split(char **split)
 {
 	size_t	i;
 
@@ -45,32 +46,54 @@ static void	free_split(char **split)
 	free(split);
 }
 
+static int	is_many(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
+static int add(char **split, t_list **stack, size_t j)
+{
+	int *num;
+	
+	if (!check_num(split[j]))
+		return (0);
+	num = malloc(sizeof(int));
+	if (!num)
+		return (0);
+	*num = ft_atoi(split[j]);
+	ft_lstadd_front(stack, ft_lstnew(num));
+
+	return (1);
+}
+
 t_list	*parser(int argc, char **argv)
 {
-	int	i;
-	int	num;
+	int		i;
 	size_t	j;
 	t_list	*stack;
 	char	**split;
 
-	i = argc - 1;
+	i = argc;
 	stack = NULL;
-	while (i > 1)
+	while (--i > 0)
 	{
 		split = ft_split(argv[i], ' ');
 		if (!split)
-			return (NULL);
-		j = 0;
-		while (split[j])
+			return (error_parsing(NULL, stack));
+		j = is_many(split);
+		while (--j != 0)
 		{
-			if (!check_num(split[j]))
-				return (NULL);
-			num = ft_atoi(split[j]);
-			ft_lstadd_front(&stack, ft_lstnew((void *)(long)num));
-			j++;
+			if (!add(split, &stack, j))
+				return (error_parsing(split, stack));
 		}
+		if (!add(split, &stack, j))
+			return (error_parsing(split, stack));
 		free_split(split);
-		i--;
 	}
 	return (stack);
 }

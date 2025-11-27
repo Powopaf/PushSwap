@@ -13,8 +13,10 @@
 #ifndef ERROR_H
 # define ERROR_H
 
-#include "../../libft/libft.h"
+# include "../../libft/libft.h"
+# include "../parsing/parse.h"
 
 int	error_message(char *msg);
+t_list	*error_parsing(char **split, t_list *stack);
 
 #endif

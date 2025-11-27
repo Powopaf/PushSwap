@@ -17,3 +17,12 @@ int	error_message(char *msg)
 	ft_putendl_fd(msg, 2);
 	return (1);
 }
+
+t_list	*error_parsing(char **split, t_list *stack)
+{
+	if (split)
+		free_split(split);
+	if (stack)
+		ft_lstclear(&stack, free);
+	return (NULL);
+}
