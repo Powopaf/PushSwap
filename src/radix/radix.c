@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:32:28 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/26 16:32:32 by pifourni         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:28:31 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ static int	norm(t_list *stack, int min)
 {
 	long	num;
 
-	num = *(int *)stack->content - min;
-	stack = stack->next;
+	num = min;
 	while (stack)
 	{
-		if ((*(int *)stack->content - min) < num)
+		if ((*(int *)stack->content - min) > num)
 			num = *(int *)stack->content - min;
 		stack = stack->next;
 	}
@@ -56,29 +55,29 @@ static int	get_max_bits(t_list *stack)
 
 void	sort(t_list **stack_a, t_list **stack_b, size_t size)
 {
-	int		maxBits;
+	int		max_bits;
 	int		i;
 	long	num;
 	int		min;
 	size_t	j;
 
-	maxBits = get_max_bits(*stack_a);
+	max_bits = get_max_bits(*stack_a);
 	i = 0;
 	min = get_min(*stack_a);
-	while (i < maxBits)
+	while (i < max_bits)
 	{
 		j = 0;
 		while (j < size)
 		{
-			num = (long)(*stack_a)->content - (long)min;
+			num = (long)(*(int *)(*stack_a)->content) - (long)min;
 			if (((num >> i) & 1) == 1)
 				ra(stack_a);
 			else
 				pb(stack_a, stack_b);
+			j++;
 		}
-		j++;
+		i++;
+		while (*stack_b)
+			pa(stack_a, stack_b);
 	}
-	while (*stack_b)
-		pa(stack_a, stack_b);
-	i++;
 }

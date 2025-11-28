@@ -22,6 +22,7 @@ void	pa(t_list **stack_a, t_list **stack_b)
 	*stack_b = (*stack_b)->next;
 	temp->next = *stack_a;
 	*stack_a = temp;
+	ft_putendl_fd("pa", 1);
 }
 
 void	pb(t_list **stack_a, t_list **stack_b)
@@ -34,6 +35,7 @@ void	pb(t_list **stack_a, t_list **stack_b)
 	*stack_a = (*stack_a)->next;
 	temp->next = *stack_b;
 	*stack_b = temp;
+	ft_putendl_fd("pb", 1);
 }
 
 void	ra(t_list **stack_a)
@@ -50,4 +52,5 @@ void	ra(t_list **stack_a)
 	while (c->next != NULL)
 		c = c->next;
 	c->next = temp;
+	ft_putendl_fd("ra", 1);
 }
