@@ -27,20 +27,7 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;
-	t_list *c = stack_a;
-	while (c)
-	{
-		printf("%d\n", *(int *)c->content);
-		c = c->next;
-	}
 	sort(&stack_a, &stack_b, size);
-	printf("After sorting:\n");
-	c = stack_a;
-	while (c)
-	{
-		printf("%d\n", *(int *)c->content);
-		c = c->next;
-	}
 	ft_lstclear(&stack_a, free);
 	ft_lstclear(&stack_b, free);
 	return (0);

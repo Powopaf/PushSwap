@@ -1,6 +1,11 @@
 *.swp
 .vscode/
 push_swap
+test1.out.valgrind
+test2.out.valgrind
+test2-2.out.valgrind
+test3.out.valgrind
+test4.out.valgrind
 # Prerequisites
 *.d
 # Object files

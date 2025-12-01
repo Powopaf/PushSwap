@@ -14,8 +14,8 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-LIB = libft/libft.a -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
+LIB = libft/libft.a
 SRC = ./swap.c \
 	  ./src/parsing/parse.c \
 	  ./src/error/error.c \
