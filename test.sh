@@ -10,7 +10,7 @@ BOLD="\033[1m"
 CHECK_MARK="✓"
 CROSS_MARK="✗"
 USE_VALGRIND=0
-VALGRIND="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt"
+VALGRIND=(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes)
 TOTAL=0
 
 if [ "$USE_VALGRIND" -eq 1 ]; then
@@ -33,27 +33,46 @@ test1() {
 	a4="$4"
 	TOTAL=$((TOTAL + 1))
 	printf "%b[Test %d]%b Input: %s %s %s %s\n" "$BLUE" "$TOTAL" "$RESET" "$a1" "$a2" "$a3" "$a4"
-	if [ "$USE_VALGRIND" -eq 1 ]; then
-		$VALGRIND $PUSH_SWAP "$a1" "$a2" "$a3" "$a4" 2> "test1.out.valgrind"
-		$PUSH_SWAP "$a1" "$a2" "$a3" "$a4" | ./checker_linux "$a1" "$a2" "$a3" "$a4" >/dev/null 2>&1
-	else
-		$PUSH_SWAP "$a1" "$a2" "$a3" "$a4" | ./checker_linux "$a1" "$a2" "$a3" "$a4" >/dev/null 2>&1
-	fi
-	printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" $($PUSH_SWAP "$a1" "$a2" "$a3" "$a4" | wc -l)
+		    if [ "$USE_VALGRIND" -eq 1 ]; then
+				logfile="test1.out.valgrind"
+				touch "$logfile"
+				ops="$("${VALGRIND[@]}" --log-file="$logfile" "$PUSH_SWAP" "$a1" "$a2" "$a3" "$a4")"
+				r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2" "$a3" "$a4")
+				if [ "$r" != "OK" ]; then
+					printf "%bError:%b Checker failed for input %s %s %s %s\n" "$RED" "$RESET" "$a1" "$a2" "$a3" "$a4"
+				else
+					printf "%bSUCCESS%b Checker passed for input %s %s %s %s\n" "$GREEN" "$RESET" "$a1" "$a2" "$a3" "$a4"
+				fi
+	  else
+		  ops="$($PUSH_SWAP "$a1" "$a2" "$a3" "$a4")"
+		  r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2" "$a3" "$a4")
+		  if [ "$r" != "OK" ]; then
+			  printf "%bError:%b Checker failed for input %s %s %s %s\n" "$RED" "$RESET" "$a1" "$a2" "$a3" "$a4"
+		  else
+			  printf "%bSUCCESS%b Checker passed for input %s %s %s %s\n" "$GREEN" "$RESET" "$a1" "$a2" "$a3" "$a4"
+		  fi
+	  fi
+	  printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" "$(printf "%s" "$ops" | wc -l)"
 }
 
 test2() {
 	a1="$1"
-	v="$2"
 	TOTAL=$((TOTAL + 1))
 	printf "%b[Test %d]%b Input: %s\n" "$BLUE" "$TOTAL" "$RESET" "$a1"
 	if [ "$USE_VALGRIND" -eq 1 ]; then
-		$VALGRIND $PUSH_SWAP "$a1" 2> "$v"
-		$PUSH_SWAP "$a1" | ./checker_linux "$a1" >/dev/null 2>&1
+		logfile="test2.out.valgrind"
+		touch "$logfile"
+		ops="$("${VALGRIND[@]}" --log-file="$logfile" "$PUSH_SWAP" "$a1")"
 	else
-		$PUSH_SWAP "$a1" | ./checker_linux "$a1" >/dev/null 2>&1
+		ops="$($PUSH_SWAP "$a1")"
 	fi
-	printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" $($PUSH_SWAP "$a1" | wc -l)
+	r=$(printf "%s" "$ops" | ./checker_linux "$a1")
+	if [ "$r" != "OK" ]; then
+		printf "%bError:%b Checker failed for input %s\n" "$RED" "$RESET" "$a1"
+	else
+		printf "%bSUCCESS%b Checker passed for input %s\n" "$GREEN" "$RESET" "$a1"
+	fi
+	printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" "$(printf "%s" "$ops" | wc -l)"
 }
 
 test3() {
@@ -62,10 +81,19 @@ test3() {
 	TOTAL=$((TOTAL + 1))
 	printf "%b[Test %d]%b Input: %s %s\n" "$BLUE" "$TOTAL" "$RESET" "$a1" "$a2"
 	if [ "$USE_VALGRIND" -eq 1 ]; then
-		$VALGRIND $PUSH_SWAP "$a1" "$a2" 2> "test3.out.valgrind"
+		logfile="test3.out.valgrind"
+		touch "$logfile"
+		ops="$("${VALGRIND[@]}" --log-file="$logfile" "$PUSH_SWAP" "$a1" "$a2")"
 	else
-		$PUSH_SWAP "$a1" "$a2"
+		ops="$($PUSH_SWAP "$a1" "$a2")"
 	fi
+	r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2")
+	if [ "$r" != "OK" ]; then
+		printf "%bError:%b Checker failed for input %s %s\n" "$RED" "$RESET" "$a1" "$a2"
+	else
+		printf "%bSUCCESS%b Checker passed for input %s %s\n" "$GREEN" "$RESET" "$a1" "$a2"
+	fi
+	printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" "$(printf "%s" "$ops" | wc -l)"
 }
 
 test4 () {
@@ -73,10 +101,19 @@ test4 () {
 	TOTAL=$((TOTAL + 1))
 	printf "%b[Test %d]%b Input: %s\n" "$BLUE" "$TOTAL" "$RESET" "$a1"
 	if [ "$USE_VALGRIND" -eq 1 ]; then
-		$VALGRIND $PUSH_SWAP "$a1" 2> "test4.out.valgrind"
+		logfile="test4.out.valgrind"
+		touch "$logfile"
+		ops="$("${VALGRIND[@]}" --log-file="$logfile" "$PUSH_SWAP" "$a1")"
 	else
-		$PUSH_SWAP "$a1"
+		ops="$($PUSH_SWAP "$a1")"
 	fi
+	r=$(printf "%s" "$ops" | ./checker_linux "$a1")
+	if [ "$r" != "OK" ]; then
+		printf "%bError:%b Checker failed for input %s\n" "$RED" "$RESET" "$a1"
+	else
+		printf "%bSUCCESS%b Checker passed for input %s\n" "$GREEN" "$RESET" "$a1"
+	fi
+	printf "%bNB OPERATION:%b %d\n" "$YELLOW" "$RESET" "$(printf "%s" "$ops" | wc -l)"
 }
 
 printf "%b[BUILD]%b running make\n" "$BLUE" "$RESET"
@@ -94,6 +131,10 @@ if [ ! -x "$PUSH_SWAP" ]; then
     printf "%bError:%b %s not found or not executable after make\n" "$RED" "$RESET" "$PUSH_SWAP"
     exit 1
 fi
+if [ ! -x ./checker_linux ]; then
+	printf "%bError:%b %s not found or not executable after make\n" "$RED" "$RESET" "./checker_linux"
+	exit 1
+fi
 printf "  %b%s%b compilation OK, found %s\n\n" "$GREEN" "$CHECK_MARK" "$RESET" "$PUSH_SWAP"
 
 touch test3.out.valgrind
@@ -108,7 +149,7 @@ test2 "811362 -686121 -637284 727131 533628 -991222 -156255 -115573 873292 \
 -909228 289178 520464 777574 240377 932378 -546438 895335 595385 -525644 392041 808945 \
 735291 -800618 355529 -262773 -356092 151687 834056 -7441 -438531 850885 -407564 -836932 \
 42897 -708290 501256 -277733 -442640 740476 334545 -411161 -103820 -683111 -526460 -936392 \
-865342 -758723 -200109 -669874 474330 -46267 86502 160751 -422001 -672587 739849" test2.out.valgrind
+865342 -758723 -200109 -669874 474330 -46267 86502 160751 -422001 -672587 739849"
 
 test2 "50 20 -536 -922 999 -523 524 -229 -749 17 -247 -832 654 818 -761 999 \
 934 -245 -641 681 -344 120 -794 -515 505 -185 -188 157 -93 -67 -535 378 -465 \
@@ -137,7 +178,7 @@ test2 "50 20 -536 -922 999 -523 524 -229 -749 17 -247 -832 654 818 -761 999 \
 479 -127 214 22 -625 -793 -75 -869 57 55 324 -727 -696 -702 -638 -505 -311 622 -786 \
 -228 851 668 368 -341 -700 -618 537 -272 80 745 426 917 605 -703 -17 -592 198 -403 \
 -927 740 754 576 -893 507 450 -397 -189 -562 264 777 -85 -904 -176 -33 -587 -31 -738 \
--285 -733 -453 463 934 30 -760 -696 -642 661 479" test2-2.out.valgrind
+-285 -733 -453 463 934 30 -760 -696 -642 661 479"
 
 test3 42 P
 

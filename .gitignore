@@ -6,6 +6,7 @@ test2.out.valgrind
 test2-2.out.valgrind
 test3.out.valgrind
 test4.out.valgrind
+valgrind-out.txt
 # Prerequisites
 *.d
 # Object files
