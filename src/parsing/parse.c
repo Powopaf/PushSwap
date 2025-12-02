@@ -58,15 +58,18 @@ static int	is_many(char **split)
 
 static int	add(char **split, t_list **stack, size_t j, size_t *i)
 {
-	int	*num;
+	t_data	*data;
+	int		num;
 
 	if (!check_num(split[j]))
 		return (0);
-	num = malloc(sizeof(int));
-	if (!num)
+	num = ft_atoi(split[j]);
+	data = malloc(sizeof(t_data));
+	if (!data)
 		return (0);
-	*num = ft_atoi(split[j]);
-	ft_lstadd_front(stack, ft_lstnew(num));
+	data->index = 0;
+	data->num = num;
+	ft_lstadd_front(stack, ft_lstnew(data));
 	(*i)++;
 	return (1);
 }

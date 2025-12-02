@@ -12,65 +12,109 @@
 
 #include "radix.h"
 
-static int	get_min(t_list *stack)
+static int	*create_array(t_list *stack, size_t size)
 {
-	int	min;
+	int		*array;
+	size_t	i;
+	t_list	*current;
 
-	min = *(int *)stack->content;
-	stack = stack->next;
-	while (stack)
+	array = malloc(sizeof(int) * size);
+	if (!array)
+		return (NULL);
+	i = 0;
+	current = stack;
+	while (current)
 	{
-		if (*(int *)stack->content < min)
-			min = *(int *)stack->content;
-		stack = stack->next;
+		array[i] = ((t_data *)current->content)->num;
+		current = current->next;
+		i++;
 	}
-	return (min);
+	return (array);
 }
 
-static int	norm(t_list *stack, int min)
+static void	sort_array(int *array, size_t size)
 {
-	long	num;
+	size_t	i;
+	size_t	j;
+	int		temp;
 
-	num = min;
-	while (stack)
+	i = 0;
+	while (i < size - 1)
 	{
-		if ((*(int *)stack->content - min) > num)
-			num = *(int *)stack->content - min;
-		stack = stack->next;
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (array[j] > array[j + 1])
+			{
+				temp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
 	}
-	return (num);
+}
+
+static void	assign_indices(t_list *stack, int *array, size_t size)
+{
+	t_list	*current;
+	size_t	i;
+
+	sort_array(array, size);
+	current = stack;
+	while (current)
+	{
+		i = 0;
+		while (i < size)
+		{
+			if (((t_data *)current->content)->num == array[i])
+			{
+				((t_data *)current->content)->index = i;
+				break ;
+			}
+			i++;
+		}
+		current = current->next;
+	}
+	free(array);
 }
 
 static int	get_max_bits(t_list *stack)
 {
-	int		max_bits;
-	size_t	max_num;
+	int		max_index;
+	int		bits;
+	t_list	*current;
 
-	max_bits = 0;
-	max_num = norm(stack, get_min(stack));
-	while ((max_num >> max_bits) != 0)
-		max_bits++;
-	return (max_bits);
+	max_index = 0;
+	current = stack;
+	while (current)
+	{
+		if (((t_data *)current->content)->index > max_index)
+			max_index = ((t_data *)current->content)->index;
+		current = current->next;
+	}
+	bits = 0;
+	while ((max_index >> bits) != 0)
+		bits++;
+	return (bits);
 }
 
 void	sort(t_list **stack_a, t_list **stack_b, size_t size)
 {
 	int		max_bits;
 	int		i;
-	long	num;
-	int		min;
 	size_t	j;
 
+	assign_indices(*stack_a, create_array(*stack_a, size), size);
 	max_bits = get_max_bits(*stack_a);
 	i = 0;
-	min = get_min(*stack_a);
 	while (i < max_bits)
 	{
 		j = 0;
 		while (j < size)
 		{
-			num = (long)(*(int *)(*stack_a)->content) - (long)min;
-			if (((num >> i) & 1) == 1)
+			if ((((t_data *)(*stack_a)->content)->index >> i) & 1)
 				ra(stack_a);
 			else
 				pb(stack_a, stack_b);

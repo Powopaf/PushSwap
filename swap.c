@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		return (error_message("\x1b[31mError while parsing arguments\x1b[0m"));
 	stack_b = NULL;
 	sort(&stack_a, &stack_b, size);
-	ft_lstclear(&stack_a, free);
-	ft_lstclear(&stack_b, free);
+	ft_lstclear(&stack_a, delete_data);
+	ft_lstclear(&stack_b, delete_data);
 	return (0);
 }

@@ -15,7 +15,13 @@
 
 # include "../../libft/libft.h"
 
+typedef struct s_data
+{
+	int	num;
+	int	index;
+}	t_data;	
+
 t_list	*parser(int argc, char **argv, size_t *i);
 void	free_split(char **split);
-
+void	delete_data(void *data);
 #endif

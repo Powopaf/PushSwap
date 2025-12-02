@@ -6,7 +6,7 @@
 #    By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/24 10:34:38 by pifourni          #+#    #+#              #
-#    Updated: 2025/11/24 12:02:24 by pifourni         ###   ########.fr        #
+#    Updated: 2025/12/02 16:00:45 by pifourni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = ./swap.c \
 	  ./src/parsing/parse.c \
 	  ./src/error/error.c \
 	  ./src/radix/radix.c \
-	  ./src/radix/operations.c
+	  ./src/radix/operations.c \
+	  ./src/parsing/utils.c
 
 OBJ = $(SRC:.c=.o)
 

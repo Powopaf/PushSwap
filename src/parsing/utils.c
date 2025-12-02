@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/26 16:32:37 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/26 16:32:39 by pifourni         ###   ########.fr       */
+/*   Created: 2025/12/02 14:53:12 by pifourni          #+#    #+#             */
+/*   Updated: 2025/12/02 14:53:16 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RADIX_H
-# define RADIX_H
+#include "parse.h"
 
-# include "../../libft/libft.h"
-# include "../parsing/parse.h"
-
-void	pa(t_list **stack_a, t_list **stack_b);
-void	pb(t_list **stack_a, t_list **stack_b);
-void	ra(t_list **stack_a);
-void	sort(t_list **stack_a, t_list **stack_b, size_t size);
-
-#endif
+void	delete_data(void *data)
+{
+	if (data)
+		free((t_data *)data);
+}

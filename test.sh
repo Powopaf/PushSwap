@@ -9,7 +9,7 @@ RESET="\033[0m"
 BOLD="\033[1m"
 CHECK_MARK="✓"
 CROSS_MARK="✗"
-USE_VALGRIND=0
+USE_VALGRIND=1
 VALGRIND=(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes)
 TOTAL=0
 
@@ -37,7 +37,7 @@ test1() {
 				logfile="test1.out.valgrind"
 				touch "$logfile"
 				ops="$("${VALGRIND[@]}" --log-file="$logfile" "$PUSH_SWAP" "$a1" "$a2" "$a3" "$a4")"
-				r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2" "$a3" "$a4")
+				r=$(printf "%s" "$ops")
 				if [ "$r" != "OK" ]; then
 					printf "%bError:%b Checker failed for input %s %s %s %s\n" "$RED" "$RESET" "$a1" "$a2" "$a3" "$a4"
 				else
@@ -45,7 +45,7 @@ test1() {
 				fi
 	  else
 		  ops="$($PUSH_SWAP "$a1" "$a2" "$a3" "$a4")"
-		  r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2" "$a3" "$a4")
+		  r=$(printf "%s" "$ops")
 		  if [ "$r" != "OK" ]; then
 			  printf "%bError:%b Checker failed for input %s %s %s %s\n" "$RED" "$RESET" "$a1" "$a2" "$a3" "$a4"
 		  else
@@ -66,7 +66,7 @@ test2() {
 	else
 		ops="$($PUSH_SWAP "$a1")"
 	fi
-	r=$(printf "%s" "$ops" | ./checker_linux "$a1")
+	r=$(printf "%s" "$ops")
 	if [ "$r" != "OK" ]; then
 		printf "%bError:%b Checker failed for input %s\n" "$RED" "$RESET" "$a1"
 	else
@@ -87,7 +87,7 @@ test3() {
 	else
 		ops="$($PUSH_SWAP "$a1" "$a2")"
 	fi
-	r=$(printf "%s" "$ops" | ./checker_linux "$a1" "$a2")
+	r=$(printf "%s" "$ops")
 	if [ "$r" != "OK" ]; then
 		printf "%bError:%b Checker failed for input %s %s\n" "$RED" "$RESET" "$a1" "$a2"
 	else
@@ -107,7 +107,7 @@ test4 () {
 	else
 		ops="$($PUSH_SWAP "$a1")"
 	fi
-	r=$(printf "%s" "$ops" | ./checker_linux "$a1")
+	r=$(printf "%s" "$ops")
 	if [ "$r" != "OK" ]; then
 		printf "%bError:%b Checker failed for input %s\n" "$RED" "$RESET" "$a1"
 	else
