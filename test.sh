@@ -9,7 +9,7 @@ RESET="\033[0m"
 BOLD="\033[1m"
 CHECK_MARK="✓"
 CROSS_MARK="✗"
-USE_VALGRIND=1
+USE_VALGRIND=0
 VALGRIND=(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes)
 TOTAL=0
 

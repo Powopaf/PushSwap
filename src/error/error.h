@@ -16,7 +16,7 @@
 # include "../../libft/libft.h"
 # include "../parsing/parse.h"
 
-int	error_message(char *msg);
+int		error_message(char *msg);
 t_list	*error_parsing(char **split, t_list *stack);
 
 #endif

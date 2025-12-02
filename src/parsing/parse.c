@@ -56,10 +56,10 @@ static int	is_many(char **split)
 	return (i);
 }
 
-static int add(char **split, t_list **stack, size_t j, size_t *i)
+static int	add(char **split, t_list **stack, size_t j, size_t *i)
 {
-	int *num;
-	
+	int	*num;
+
 	if (!check_num(split[j]))
 		return (0);
 	num = malloc(sizeof(int));

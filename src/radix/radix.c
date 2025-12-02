@@ -43,7 +43,7 @@ static int	norm(t_list *stack, int min)
 
 static int	get_max_bits(t_list *stack)
 {
-	int	max_bits;
+	int		max_bits;
 	size_t	max_num;
 
 	max_bits = 0;
