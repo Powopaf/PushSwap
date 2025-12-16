@@ -10,24 +10,22 @@ This project is a sorting algorithm implementation designed to efficiently sort 
 
 To compile the project, use the provided Makefile. Run the following command in the terminal:
 
-```bash
+```sh
 make
 ```
 
 After compilation, you can execute the program using:
 
-```bash
+```sh
 ./push_swap <list_of_numbers>
 ```
 
 ## Resources
 
-- [42 School Documentation](https://www.42.fr/en/documentation/)
-- [Sorting Algorithms Overview](https://en.wikipedia.org/wiki/Sorting_algorithm)
-- [Push Swap Tutorial](https://github.com/42School/push_swap)
+- [https://youtu.be/XiuSW_mEn7g?si=70cu7HouDpsU2Ing](Radix sort explanation)
 
 ## Test
 
 You can test the project or your by runing `./test.sh` or do average count of operatios needed with `./moy.sh` make sure to have my or yours `numbers.perl` to generate random numbers. (the seed change at each execution of `numbers.perl`)
 
-AI was used to assist in generating the initial project structure and to provide guidance on algorithm implementation.
+AI was used to provide guidance on algorithm implementation.
