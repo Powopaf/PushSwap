@@ -1,54 +1,82 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Time::HiRes qw(time clock_gettime CLOCK_MONOTONIC);
 
-sub find_seed {
-    my $t = time();                              # seconds since epoch (float)
-    my $h = int(clock_gettime(CLOCK_MONOTONIC) * 1_000_000); # high-res clock
-    my $pid = 0;
+# numbers.pl
+# Usage:
+#   ./numbers.pl COUNT MIN MAX
+# Example:
+#   ./numbers.pl 500 -10000 10000
 
-    # Read PID from /proc/self/stat (Linux)
-    if (open my $p, '<', '/proc/self/stat') {
-        my $content = <$p>;
-        close $p;
-        if (defined $content && $content =~ /^(\d+)/) {
-            $pid = $1;
+sub read_4_bytes_entropy {
+    my @paths = ("/dev/random", "/dev/urandom"); # fallback if /dev/random blocks/unavailable
+    for my $p (@paths) {
+        if (open(my $fh, "<:raw", $p)) {
+            my $buf = "";
+            my $n = read($fh, $buf, 4);
+            close($fh);
+            if (defined $n && $n == 4) {
+                return unpack("N", $buf); # 32-bit unsigned
+            }
         }
     }
-
-    my $ur = 0;
-    # Read 4 bytes from /dev/urandom
-    if (open my $f, '<:raw', '/dev/urandom') {
-        my $bytes;
-        if (read($f, $bytes, 4) == 4) {
-            my @b = unpack('C4', $bytes);
-            $ur = (($b[0] * 256 + $b[1]) * 256 + $b[2]) * 256 + $b[3];
-        }
-        close $f;
-    }
-
-    my $seed = int(($t + $h + $pid + $ur + 173) % (2**31));
-    return $seed;
+    return 0; # last resort
 }
 
-my $size = defined $ARGV[0] ? int($ARGV[0]) : 100;
-my $min  = defined $ARGV[1] ? int($ARGV[1]) : 0;
-my $max  = defined $ARGV[2] ? int($ARGV[2]) : 1000;
+sub build_seed {
+    my $t   = time();     # seconds since epoch
+    my $pid = $$;         # current PID
+    my $e   = read_4_bytes_entropy(); # first 4 bytes as int
 
-my $seed = find_seed();
+    # User asked "time since epoch + pid + 4 bytes" (numeric addition).
+    # Then mix a bit to spread bits better.
+    my $seed = ($t + $pid + $e) & 0x7fffffff;
+    $seed ^= (($seed << 13) & 0x7fffffff);
+    $seed ^= ($seed >> 17);
+    $seed ^= (($seed << 5)  & 0x7fffffff);
+    return $seed & 0x7fffffff;
+}
+
+sub fisher_yates_shuffle {
+    my ($arr_ref) = @_;
+    for (my $i = $#$arr_ref; $i > 0; $i--) {
+        my $j = int(rand($i + 1));
+        @$arr_ref[$i, $j] = @$arr_ref[$j, $i];
+    }
+}
+
+# ---- main ----
+my ($count, $min, $max) = @ARGV;
+
+if (!defined $count || !defined $min || !defined $max) {
+    die "Usage: $0 COUNT MIN MAX\nExample: $0 10 0 100\n";
+}
+die "COUNT must be > 0\n" unless $count =~ /^\d+$/ && $count > 0;
+die "MIN must be <= MAX\n" if $min > $max;
+
+my $range_size = $max - $min + 1;
+die "Range too small: need $count unique numbers but range has only $range_size values\n"
+    if $count > $range_size;
+
+my $seed = build_seed();
 srand($seed);
 
-# Discard first few values (like Lua)
-rand() for 1..5;
-
-if ($min > $max) {
-    ($min, $max) = ($max, $min);
+# Strategy:
+# - If the range isn't huge OR you want a big portion of it -> shuffle the whole range (fast + uniform).
+# - Otherwise -> rejection sampling with a hash (memory-friendly for large ranges).
+my @out;
+if ($range_size <= 5_000_000 || $count > int($range_size / 2)) {
+    my @pool = ($min .. $max);
+    fisher_yates_shuffle(\@pool);
+    @out = @pool[0 .. $count - 1];
+} else {
+    my %seen;
+    while (@out < $count) {
+        my $n = $min + int(rand($range_size));
+        next if $seen{$n}++;
+        push @out, $n;
+    }
 }
 
-for my $i (1 .. $size) {
-    my $val = int(rand($max - $min + 1)) + $min;
-    print $val;
-    print " " if $i < $size;
-}
-print "\n";
+print "$_\n" for @out;
+exit 0;
