@@ -22,7 +22,7 @@ After compilation, you can execute the program using:
 
 ## Resources
 
-- [https://youtu.be/XiuSW_mEn7g?si=70cu7HouDpsU2Ing](Radix sort explanation)
+- [Radix sort explanation](https://youtu.be/XiuSW_mEn7g?si=70cu7HouDpsU2Ing)
 
 ## Test
 

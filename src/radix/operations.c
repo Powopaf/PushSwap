@@ -54,3 +54,38 @@ void	ra(t_list **stack_a)
 	c->next = temp;
 	ft_putendl_fd("ra", 1);
 }
+
+void	rra(t_list **stack_a)
+{
+	t_list	*prev;
+	t_list	*last;
+
+	if (!stack_a || !*stack_a || !(*stack_a)->next)
+		return ;
+	prev = NULL;
+	last = *stack_a;
+	while (last->next != NULL)
+	{
+		prev = last;
+		last = last->next;
+	}
+	prev->next = NULL;
+	last->next = *stack_a;
+	*stack_a = last;
+	ft_putendl_fd("rra", 1);
+}
+
+void	sa(t_list **stack_a)
+{
+	t_list	*first;
+	t_list	*second;
+
+	if (!stack_a || !*stack_a || !(*stack_a)->next)
+		return ;
+	first = *stack_a;
+	second = (*stack_a)->next;
+	first->next = second->next;
+	second->next = first;
+	*stack_a = second;
+	ft_putendl_fd("sa", 1);
+}
