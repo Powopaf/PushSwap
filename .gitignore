@@ -3,6 +3,7 @@
 push_swap
 *.valgrind
 *.err
+*.log
 # Prerequisites
 *.d
 # Object files

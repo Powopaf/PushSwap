@@ -1,3 +1,33 @@
-# PushSwap
+# Pipex
 
-In this project, you will sort data in a stack using a limited set of instructions, aiming to achieve the lowest possible number of actions. To succeed, you will need to work with various algorithms and choose the most appropriate one for optimized data sorting
+*This project has been created as part of the 42 curriculum by pifourni.*
+
+## Description
+
+This project is a sorting algorithm implementation designed to efficiently sort a stack of integers using the Push Swap algorithm. The goal is to sort the integers in ascending order using a limited set of operations, while minimizing the number of moves.
+
+## Instructions
+
+To compile the project, use the provided Makefile. Run the following command in the terminal:
+
+```bash
+make
+```
+
+After compilation, you can execute the program using:
+
+```bash
+./push_swap <list_of_numbers>
+```
+
+## Resources
+
+- [42 School Documentation](https://www.42.fr/en/documentation/)
+- [Sorting Algorithms Overview](https://en.wikipedia.org/wiki/Sorting_algorithm)
+- [Push Swap Tutorial](https://github.com/42School/push_swap)
+
+## Test
+
+You can test the project or your by runing `./test.sh` or do average count of operatios needed with `./moy.sh` make sure to have my or yours `numbers.perl` to generate random numbers. (the seed change at each execution of `numbers.perl`)
+
+AI was used to assist in generating the initial project structure and to provide guidance on algorithm implementation.
