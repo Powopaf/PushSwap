@@ -27,18 +27,9 @@ if ($min >= $max) {
     exit 1;
 }
 
-# Create a unique seed using time, process ID, and a counter file
+# Create a unique seed using process ID and time
 # This ensures different seeds even for calls in the same second
-my $seed = time() ^ ($$ << 15);
-
-# Add microseconds if Time::HiRes is available
-eval {
-    require Time::HiRes;
-    my $usec = Time::HiRes::time();
-    $seed ^= int($usec * 1000000);
-};
-
-srand($seed);
+srand(time() ^ $$);
 
 # Check if size is larger than the range
 my $range = $max - $min + 1;

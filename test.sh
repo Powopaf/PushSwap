@@ -76,7 +76,6 @@ test3() {
 	fi
 }
 
-
 make re
 test1 100 -1000 1000
 test2

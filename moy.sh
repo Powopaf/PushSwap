@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MOY=0
-TOTAL=100000
+TOTAL=1000000
 BAR_WIDTH=50
 
 PUSH_SWAP=./push_swap
@@ -16,7 +16,7 @@ fi
 
 for ((i=1; i<=TOTAL; i++))
 do
-    ARGS=$(./numbers.perl 10 -1000 1000)
+    ARGS=$(./numbers.perl 100 -10000 10000)
 
     # count operations, keep stderr out of terminal so the bar stays clean
 	TEST=$("$PUSH_SWAP" $ARGS | ./checker_linux $ARGS)
