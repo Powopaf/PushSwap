@@ -21,7 +21,9 @@ SRC = ./swap.c \
 	  ./src/error/error.c \
 	  ./src/radix/radix.c \
 	  ./src/radix/operations.c \
-	  ./src/parsing/utils.c
+	  ./src/parsing/utils.c \
+	  ./src/radix/small.c \
+	  ./src/radix/ten.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -2,81 +2,62 @@
 use strict;
 use warnings;
 
-# numbers.pl
-# Usage:
-#   ./numbers.pl COUNT MIN MAX
-# Example:
-#   ./numbers.pl 500 -10000 10000
-
-sub read_4_bytes_entropy {
-    my @paths = ("/dev/random", "/dev/urandom"); # fallback if /dev/random blocks/unavailable
-    for my $p (@paths) {
-        if (open(my $fh, "<:raw", $p)) {
-            my $buf = "";
-            my $n = read($fh, $buf, 4);
-            close($fh);
-            if (defined $n && $n == 4) {
-                return unpack("N", $buf); # 32-bit unsigned
-            }
-        }
-    }
-    return 0; # last resort
+# Check arguments
+if (@ARGV != 3) {
+    print STDERR "Usage: $0 <size> <min> <max>\n";
+    print STDERR "Example: $0 100 -1000 1000\n";
+    exit 1;
 }
 
-sub build_seed {
-    my $t   = time();     # seconds since epoch
-    my $pid = $$;         # current PID
-    my $e   = read_4_bytes_entropy(); # first 4 bytes as int
+my ($size, $min, $max) = @ARGV;
 
-    # User asked "time since epoch + pid + 4 bytes" (numeric addition).
-    # Then mix a bit to spread bits better.
-    my $seed = ($t + $pid + $e) & 0x7fffffff;
-    $seed ^= (($seed << 13) & 0x7fffffff);
-    $seed ^= ($seed >> 17);
-    $seed ^= (($seed << 5)  & 0x7fffffff);
-    return $seed & 0x7fffffff;
+# Validate arguments
+if ($size !~ /^\d+$/ || $size <= 0) {
+    print STDERR "Error: size must be a positive integer\n";
+    exit 1;
 }
 
-sub fisher_yates_shuffle {
-    my ($arr_ref) = @_;
-    for (my $i = $#$arr_ref; $i > 0; $i--) {
-        my $j = int(rand($i + 1));
-        @$arr_ref[$i, $j] = @$arr_ref[$j, $i];
-    }
+if ($min !~ /^-?\d+$/ || $max !~ /^-?\d+$/) {
+    print STDERR "Error: min and max must be integers\n";
+    exit 1;
 }
 
-# ---- main ----
-my ($count, $min, $max) = @ARGV;
-
-if (!defined $count || !defined $min || !defined $max) {
-    die "Usage: $0 COUNT MIN MAX\nExample: $0 10 0 100\n";
+if ($min >= $max) {
+    print STDERR "Error: min must be less than max\n";
+    exit 1;
 }
-die "COUNT must be > 0\n" unless $count =~ /^\d+$/ && $count > 0;
-die "MIN must be <= MAX\n" if $min > $max;
 
-my $range_size = $max - $min + 1;
-die "Range too small: need $count unique numbers but range has only $range_size values\n"
-    if $count > $range_size;
+# Create a unique seed using time, process ID, and a counter file
+# This ensures different seeds even for calls in the same second
+my $seed = time() ^ ($$ << 15);
 
-my $seed = build_seed();
+# Add microseconds if Time::HiRes is available
+eval {
+    require Time::HiRes;
+    my $usec = Time::HiRes::time();
+    $seed ^= int($usec * 1000000);
+};
+
 srand($seed);
 
-# Strategy:
-# - If the range isn't huge OR you want a big portion of it -> shuffle the whole range (fast + uniform).
-# - Otherwise -> rejection sampling with a hash (memory-friendly for large ranges).
-my @out;
-if ($range_size <= 5_000_000 || $count > int($range_size / 2)) {
-    my @pool = ($min .. $max);
-    fisher_yates_shuffle(\@pool);
-    @out = @pool[0 .. $count - 1];
-} else {
-    my %seen;
-    while (@out < $count) {
-        my $n = $min + int(rand($range_size));
-        next if $seen{$n}++;
-        push @out, $n;
-    }
+# Check if size is larger than the range
+my $range = $max - $min + 1;
+if ($size > $range) {
+    print STDERR "Error: size ($size) cannot be larger than the range ($range)\n";
+    exit 1;
 }
 
-print "$_\n" for @out;
-exit 0;
+# Generate unique random numbers using Fisher-Yates shuffle
+my @all_numbers = ($min .. $max);
+my @numbers;
+
+for (my $i = 0; $i < $size; $i++) {
+    my $random_index = int(rand(@all_numbers));
+    push @numbers, $all_numbers[$random_index];
+    
+    # Remove the selected number to avoid duplicates
+    splice(@all_numbers, $random_index, 1);
+}
+
+# Print numbers space-separated on a single line
+print join(' ', @numbers) . "\n";

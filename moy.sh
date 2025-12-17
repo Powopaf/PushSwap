@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MOY=0
-TOTAL=1000000
+TOTAL=100000
 BAR_WIDTH=50
 
 PUSH_SWAP=./push_swap
@@ -16,10 +16,15 @@ fi
 
 for ((i=1; i<=TOTAL; i++))
 do
-    ARGS=$(./numbers.perl 100 -10000 10000)
+    ARGS=$(./numbers.perl 10 -1000 1000)
 
     # count operations, keep stderr out of terminal so the bar stays clean
-    NB=$("$PUSH_SWAP" $ARGS 2>>"$ERROR_LOG" | wc -l)
+	TEST=$("$PUSH_SWAP" $ARGS | ./checker_linux $ARGS)
+	if [ "$TEST" != "OK" ]; then
+		echo "Test $i failed with args: $ARGS" >> "$ERROR_LOG"
+		echo "Output: $TEST" >> "$ERROR_LOG"
+	fi
+    NB=$("$PUSH_SWAP" $ARGS | wc -l)
     NB=${NB//[[:space:]]/}   # remove spaces from wc output
 
     MOY=$((MOY + NB))
