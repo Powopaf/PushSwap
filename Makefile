@@ -23,7 +23,6 @@ SRC = ./swap.c \
 	  ./src/radix/operations.c \
 	  ./src/parsing/utils.c \
 	  ./src/radix/small.c \
-	  ./src/radix/ten.c
 
 OBJ = $(SRC:.c=.o)
 

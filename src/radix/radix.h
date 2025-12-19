@@ -24,6 +24,6 @@ void	sa(t_list **stack_a);
 void	rra(t_list **stack_a);
 void	two_sort(t_list **a);
 void	three_sort(t_list **a);
-void	ten_sort(t_list **a, t_list **b);
+void	small_sort(t_list **a, t_list **b);
 
 #endif

@@ -31,8 +31,8 @@ int	main(int argc, char **argv)
 		two_sort(&stack_a);
 	else if (size == 3)
 		three_sort(&stack_a);
-	else if (size <= 10)
-		ten_sort(&stack_a, &stack_b);
+	else if (size <= 5)
+		small_sort(&stack_a, &stack_b);
 	else
 		sort(&stack_a, &stack_b, size);
 	ft_lstclear(&stack_a, delete_data);
