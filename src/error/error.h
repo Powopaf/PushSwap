@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 15:25:37 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/26 15:25:38 by pifourni         ###   ########.fr       */
+/*   Updated: 2025/12/30 10:58:58 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../libft/libft.h"
 # include "../parsing/parse.h"
 
-int		error_message(char *msg);
+int		error_message(char *msg, t_list *a);
 t_list	*error_parsing(char **split, t_list *stack);
 
 #endif
