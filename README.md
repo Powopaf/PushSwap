@@ -8,6 +8,11 @@ This project is a sorting algorithm implementation designed to efficiently sort 
 
 ## Instructions
 
+Make sure to init the submodule with
+```sh
+git submodule update --init --recursive
+```
+
 To compile the project, use the provided Makefile. Run the following command in the terminal:
 
 ```sh

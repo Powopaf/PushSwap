@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:47:13 by pifourni          #+#    #+#             */
-/*   Updated: 2025/11/26 14:47:18 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:28:55 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	add(char **split, t_list **stack, size_t j, size_t *i)
 t_list	*parser(int argc, char **argv, size_t *k)
 {
 	int		i;
-	size_t	j;
+	int		j;
 	t_list	*stack;
 	char	**split;
 
@@ -89,12 +89,12 @@ t_list	*parser(int argc, char **argv, size_t *k)
 		if (!split)
 			return (error_parsing(NULL, stack));
 		j = is_many(split);
-		while (--j != 0)
+		while (--j > 0)
 		{
 			if (!add(split, &stack, j, k))
 				return (error_parsing(split, stack));
 		}
-		if (!add(split, &stack, j, k))
+		if (j < 0 || !add(split, &stack, j, k))
 			return (error_parsing(split, stack));
 		free_split(split);
 	}

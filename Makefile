@@ -6,7 +6,7 @@
 #    By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/24 10:34:38 by pifourni          #+#    #+#              #
-#    Updated: 2025/12/30 11:18:37 by pifourni         ###   ########.fr        #
+#    Updated: 2026/01/05 13:25:44 by pifourni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LIB = libft/libft.a
 SRC = ./swap.c \
 	  ./src/parsing/parse.c \
