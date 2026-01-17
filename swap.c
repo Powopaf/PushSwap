@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 10:34:53 by pifourni          #+#    #+#             */
-/*   Updated: 2025/12/30 11:17:40 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/01/17 16:45:56 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	is_twice(t_list *a)
 
 	n = ((t_data *)a->content)->num;
 	prev = a;
-	while(prev->next)
+	while (prev->next)
 	{
 		curr = prev->next;
-		while(curr)
+		while (curr)
 		{
 			if (((t_data *)curr->content)->num == n)
 				return (0);
@@ -67,7 +67,7 @@ int	is_twice(t_list *a)
 		prev = prev->next;
 		n = ((t_data *)prev->content)->num;
 	}
-	return (1);	
+	return (1);
 }
 
 int	is_sort(t_list *a)
