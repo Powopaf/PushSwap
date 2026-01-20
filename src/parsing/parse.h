@@ -24,4 +24,6 @@ typedef struct s_data
 t_list	*parser(int argc, char **argv, size_t *i);
 void	free_split(char **split);
 void	delete_data(void *data);
+long	ft_atol(const char *nptr);
+
 #endif

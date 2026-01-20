@@ -59,11 +59,13 @@ static int	is_many(char **split)
 static int	add(char **split, t_list **stack, size_t j, size_t *i)
 {
 	t_data	*data;
-	int		num;
+	long	num;
 
 	if (!check_num(split[j]))
 		return (0);
-	num = ft_atoi(split[j]);
+	num = ft_atol(split[j]);
+	if (num < -2147483648 || num > 2147483647)
+		return (0);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
